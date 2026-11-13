@@ -1,0 +1,289 @@
+{
+  "runnable": 28,
+  "cases": [
+    {
+      "name": "syntax:via express@4.16.4 -\u003e body-parser@1.18.3",
+      "kind": "syntax",
+      "file": "via express@4.16.4 -\u003e body-parser@1.18.3",
+      "skip": "no syntax checker for .3"
+    },
+    {
+      "name": "syntax:src/AccountService/app.js",
+      "kind": "syntax",
+      "file": "src/AccountService/app.js"
+    },
+    {
+      "name": "syntax:src/AccountService/routes/index.js",
+      "kind": "syntax",
+      "file": "src/AccountService/routes/index.js"
+    },
+    {
+      "name": "syntax:src/AuthenticationService/app.js",
+      "kind": "syntax",
+      "file": "src/AuthenticationService/app.js"
+    },
+    {
+      "name": "syntax:src/AuthenticationService/routes/index.js",
+      "kind": "syntax",
+      "file": "src/AuthenticationService/routes/index.js"
+    },
+    {
+      "name": "syntax:src/AuthenticationService/routes/users.js",
+      "kind": "syntax",
+      "file": "src/AuthenticationService/routes/users.js"
+    },
+    {
+      "name": "syntax:src/FrontendService/app.js",
+      "kind": "syntax",
+      "file": "src/FrontendService/app.js"
+    },
+    {
+      "name": "syntax:src/FrontendService/routes/index.js",
+      "kind": "syntax",
+      "file": "src/FrontendService/routes/index.js"
+    },
+    {
+      "name": "syntax:src/AccountService/pnpm-lock.yaml",
+      "kind": "syntax",
+      "file": "src/AccountService/pnpm-lock.yaml",
+      "skip": "no syntax checker for .yaml"
+    },
+    {
+      "name": "import:npm:body-parser",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/body-parser)"
+    },
+    {
+      "name": "import:npm:cookie",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/cookie)"
+    },
+    {
+      "name": "syntax:src/ManagementService/app.js",
+      "kind": "syntax",
+      "file": "src/ManagementService/app.js"
+    },
+    {
+      "name": "import:npm:ejs",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/ejs)"
+    },
+    {
+      "name": "import:npm:express",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/express)"
+    },
+    {
+      "name": "syntax:src/AccountService/models/Account.js",
+      "kind": "syntax",
+      "file": "src/AccountService/models/Account.js"
+    },
+    {
+      "name": "syntax:src/ProductService/models/Product.js",
+      "kind": "syntax",
+      "file": "src/ProductService/models/Product.js"
+    },
+    {
+      "name": "import:npm:mongoose",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/mongoose)"
+    },
+    {
+      "name": "syntax:src/AccountService/yarn.lock",
+      "kind": "syntax",
+      "file": "src/AccountService/yarn.lock",
+      "skip": "no syntax checker for .lock"
+    },
+    {
+      "name": "import:npm:morgan",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/morgan)"
+    },
+    {
+      "name": "syntax:via mongoose@5.9.6 -\u003e mpath@0.6.0",
+      "kind": "syntax",
+      "file": "via mongoose@5.9.6 -\u003e mpath@0.6.0",
+      "skip": "no syntax checker for .0"
+    },
+    {
+      "name": "syntax:src/PaymentService/app.js",
+      "kind": "syntax",
+      "file": "src/PaymentService/app.js"
+    },
+    {
+      "name": "syntax:src/PaymentService/models/Transaction.js",
+      "kind": "syntax",
+      "file": "src/PaymentService/models/Transaction.js"
+    },
+    {
+      "name": "syntax:src/ProductService/app.js",
+      "kind": "syntax",
+      "file": "src/ProductService/app.js"
+    },
+    {
+      "name": "import:npm:mpath",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/mpath)"
+    },
+    {
+      "name": "syntax:via mongoose@5.9.6 -\u003e mquery@3.2.2",
+      "kind": "syntax",
+      "file": "via mongoose@5.9.6 -\u003e mquery@3.2.2",
+      "skip": "no syntax checker for .2"
+    },
+    {
+      "name": "import:npm:mquery",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/mquery)"
+    },
+    {
+      "name": "syntax:via morgan@1.9.1 -\u003e on-headers@1.0.2",
+      "kind": "syntax",
+      "file": "via morgan@1.9.1 -\u003e on-headers@1.0.2",
+      "skip": "no syntax checker for .2"
+    },
+    {
+      "name": "syntax:src/OrderService/app.js",
+      "kind": "syntax",
+      "file": "src/OrderService/app.js"
+    },
+    {
+      "name": "import:npm:on-headers",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/on-headers)"
+    },
+    {
+      "name": "syntax:via express@4.16.4 -\u003e path-to-regexp@0.1.7",
+      "kind": "syntax",
+      "file": "via express@4.16.4 -\u003e path-to-regexp@0.1.7",
+      "skip": "no syntax checker for .7"
+    },
+    {
+      "name": "import:npm:path-to-regexp",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/path-to-regexp)"
+    },
+    {
+      "name": "syntax:via express@4.16.4 -\u003e proxy-addr@2.0.6",
+      "kind": "syntax",
+      "file": "via express@4.16.4 -\u003e proxy-addr@2.0.6",
+      "skip": "no syntax checker for .6"
+    },
+    {
+      "name": "import:npm:proxy-addr",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/proxy-addr)"
+    },
+    {
+      "name": "syntax:via express@4.16.4 -\u003e qs@6.5.2",
+      "kind": "syntax",
+      "file": "via express@4.16.4 -\u003e qs@6.5.2",
+      "skip": "no syntax checker for .2"
+    },
+    {
+      "name": "import:npm:qs",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/qs)"
+    },
+    {
+      "name": "syntax:via mongoose@5.9.6 -\u003e mongodb@3.5.5 -\u003e require_optional@1.0.1 -\u003e semver@5.7.1",
+      "kind": "syntax",
+      "file": "via mongoose@5.9.6 -\u003e mongodb@3.5.5 -\u003e require_optional@1.0.1 -\u003e semver@5.7.1",
+      "skip": "no syntax checker for .1"
+    },
+    {
+      "name": "import:npm:semver",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/semver)"
+    },
+    {
+      "name": "syntax:via express@4.16.4 -\u003e send@0.16.2",
+      "kind": "syntax",
+      "file": "via express@4.16.4 -\u003e send@0.16.2",
+      "skip": "no syntax checker for .2"
+    },
+    {
+      "name": "import:npm:send",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/send)"
+    },
+    {
+      "name": "syntax:via express@4.16.4 -\u003e serve-static@1.13.2",
+      "kind": "syntax",
+      "file": "via express@4.16.4 -\u003e serve-static@1.13.2",
+      "skip": "no syntax checker for .2"
+    },
+    {
+      "name": "import:npm:serve-static",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/serve-static)"
+    },
+    {
+      "name": "syntax:via swagger-ui-express@4.1.4 -\u003e swagger-ui-dist@3.25.0",
+      "kind": "syntax",
+      "file": "via swagger-ui-express@4.1.4 -\u003e swagger-ui-dist@3.25.0",
+      "skip": "no syntax checker for .0"
+    },
+    {
+      "name": "import:npm:swagger-ui-dist",
+      "kind": "import",
+      "skip": "package not installed (no node_modules/swagger-ui-dist)"
+    },
+    {
+      "name": "command:node --check src/AccountService/app.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/AccountService/routes/index.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/AuthenticationService/app.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/AuthenticationService/routes/index.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/AuthenticationService/routes/users.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/FrontendService/app.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/FrontendService/routes/index.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/ManagementService/app.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/AccountService/models/Account.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/ProductService/models/Product.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/PaymentService/app.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/PaymentService/models/Transaction.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/ProductService/app.js",
+      "kind": "command"
+    },
+    {
+      "name": "command:node --check src/OrderService/app.js",
+      "kind": "command"
+    }
+  ]
+}
