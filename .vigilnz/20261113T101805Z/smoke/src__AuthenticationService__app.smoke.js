@@ -1,21 +1,27 @@
-function fail(msg) {
-  console.error(msg);
+'use strict';
+
+let app;
+try {
+  app = require('../../../src/AuthenticationService/app.js');
+} catch (e) {
+  console.error('Failed to load module:', e && e.stack ? e.stack : e);
   process.exit(1);
 }
 
-let loaded;
 try {
-  loaded = require('../../../src/AuthenticationService/app.js');
+  if (!app || typeof app !== 'function') {
+    throw new Error('Expected exported app to be a function');
+  }
+
+  const settings = app.settings || {};
+  if (settings['view engine'] !== 'ejs') {
+    throw new Error('Unexpected view engine: ' + String(settings['view engine']));
+  }
+
+  if (typeof app.handle !== 'function') {
+    throw new Error('Expected app.handle to be a function');
+  }
 } catch (e) {
-  fail('Failed to load module: ' + (e && e.message));
+  console.error('Behavior check failed:', e && e.stack ? e.stack : e);
+  process.exit(1);
 }
-
-if (!loaded || typeof loaded !== 'function' || typeof loaded.use !== 'function') {
-  fail('Unexpected export shape for AuthenticationService app');
-}
-
-if (loaded.mountpath !== '/') {
-  fail('AuthenticationService app mountpath changed: ' + String(loaded.mountpath));
-}
-
-process.exit(0);
