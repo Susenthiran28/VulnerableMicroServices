@@ -1,0 +1,9 @@
+{
+  "targets": [
+    "src/AccountService/routes/index.js"
+  ],
+  "kept": null,
+  "dropped": [
+    ".vigilnz/20261113T093542Z/smoke/src__AccountService__routes__index.smoke.js (failed on current code)"
+  ]
+}

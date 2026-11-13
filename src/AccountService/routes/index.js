@@ -1,6 +1,32 @@
 var express = require('express');
 var router = express.Router();
+const mongoose = require('mongoose');
 const Account = require('../models/Account');
+
+const ALLOWED_FIELDS = ['email', 'username', 'full_name', 'password'];
+
+function hasUnsafeKeys(obj) {
+  if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return false;
+  return Object.keys(obj).some(key => key.startsWith('$') || key.includes('.'));
+}
+
+function pickAllowed(body, allowed) {
+  const out = {};
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return out;
+  allowed.forEach(key => {
+    if (Object.prototype.hasOwnProperty.call(body, key)) {
+      out[key] = body[key];
+    }
+  });
+  return out;
+}
+
+function hasOnlyAllowedAndSafeKeys(body, allowed) {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return false;
+  const keys = Object.keys(body);
+  if (keys.length === 0) return true;
+  return keys.every(key => allowed.includes(key) && !key.startsWith('$') && !key.includes('.'));
+}
 
 router.get('/', function (req, res, next) {
   res.status(200);
@@ -13,15 +39,24 @@ router.get('/', function (req, res, next) {
 
 // Create account
 router.put('/', function (req, res, next) {
-  Account.findOne({ email: req.body.email })
+  if (!hasOnlyAllowedAndSafeKeys(req.body, ALLOWED_FIELDS) || hasUnsafeKeys(req.body)) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
+  const createData = pickAllowed(req.body, ALLOWED_FIELDS);
+
+  Account.findOne({ email: createData.email })
     .then(account => {
       if (!account) {
         Account.create({
-          email: req.body.email,
-          username: req.body.username,
-          full_name: req.body.full_name,
-          password: req.body.password
-        }).then( doc => {
+          email: createData.email,
+          username: createData.username,
+          full_name: createData.full_name,
+          password: createData.password
+        }).then(doc => {
           return res.status(200).json({
             status: 'OK',
             data: doc
@@ -43,7 +78,22 @@ router.put('/', function (req, res, next) {
 
 // Find account
 router.post('/', function (req, res, next) {
-  Account.findOne(req.body)
+  if (!hasOnlyAllowedAndSafeKeys(req.body, ALLOWED_FIELDS) || hasUnsafeKeys(req.body)) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
+  const filter = pickAllowed(req.body, ALLOWED_FIELDS);
+  if (Object.keys(filter).length === 0) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
+  Account.findOne(filter)
     .then(account => {
       if (account) {
         return res.status(200).json({
@@ -68,6 +118,13 @@ router.post('/', function (req, res, next) {
 // Get account
 router.get('/:user', function (req, res, next) {
   var user_id = req.params.user;
+  if (!mongoose.Types.ObjectId.isValid(user_id)) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
   Account.findOne({
     _id: user_id
   })
@@ -95,9 +152,31 @@ router.get('/:user', function (req, res, next) {
 // Update account
 router.patch('/:user', function (req, res, next) {
   var user_id = req.params.user;
+  if (!mongoose.Types.ObjectId.isValid(user_id)) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
+  if (!hasOnlyAllowedAndSafeKeys(req.body, ALLOWED_FIELDS) || hasUnsafeKeys(req.body)) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
+  const updateData = pickAllowed(req.body, ALLOWED_FIELDS);
+  if (Object.keys(updateData).length === 0) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
   Account.findOneAndUpdate({
     _id: user_id
-  }, req.body)
+  }, updateData)
     .then(account => {
       if (account) {
         return res.status(200).json({
@@ -122,6 +201,13 @@ router.patch('/:user', function (req, res, next) {
 // Delete account
 router.delete('/:user', function (req, res, next) {
   var user_id = req.params.user;
+  if (!mongoose.Types.ObjectId.isValid(user_id)) {
+    return res.status(400).json({
+      status: 'FAIL',
+      message: 'Invalid input'
+    });
+  }
+
   Account.deleteOne({
     _id: user_id
   })
