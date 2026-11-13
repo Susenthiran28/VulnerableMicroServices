@@ -1,26 +1,41 @@
-const path = require('path');
+'use strict';
 
-let mod;
+let loaded;
+let observed;
+
 try {
-  mod = require(path.join(__dirname, '../../../src/AccountService/app.js'));
+  loaded = require('../../../src/AccountService/app.js');
 } catch (e) {
   console.error('Failed to load module:', e && e.stack ? e.stack : e);
   process.exit(1);
 }
 
 try {
-  if (typeof mod !== 'function') {
-    console.error('Unexpected export type for app.js');
-    process.exit(1);
-  }
-
-  const settingsFn = mod && mod.settings && mod.settings['x-powered-by'];
-  if (typeof settingsFn !== 'boolean') {
-    console.error('Observed behavior changed: expected express app with boolean x-powered-by setting');
-    process.exit(1);
-  }
+  observed = {
+    type: typeof loaded,
+    isFunction: typeof loaded === 'function',
+    hasUse: !!(loaded && typeof loaded.use === 'function'),
+    hasHandle: !!(loaded && typeof loaded.handle === 'function')
+  };
 } catch (e) {
-  console.error('Failure while checking behavior:', e && e.stack ? e.stack : e);
+  console.error('Failed to observe module shape:', e && e.stack ? e.stack : e);
+  process.exit(1);
+}
+
+const expected = {
+  type: 'function',
+  isFunction: true,
+  hasUse: true,
+  hasHandle: true
+};
+
+if (
+  observed.type !== expected.type ||
+  observed.isFunction !== expected.isFunction ||
+  observed.hasUse !== expected.hasUse ||
+  observed.hasHandle !== expected.hasHandle
+) {
+  console.error('Observed behavior changed. Expected:', expected, 'Observed:', observed);
   process.exit(1);
 }
 

@@ -3,18 +3,23 @@
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
-    "express": "~4.16.1",
+    "express": "4.20.0",
     "http-errors": "~1.6.3",
     "mongoose": "5.13.23",
-    "morgan": "~1.9.1",
+    "morgan": "1.12.1",
     "swagger-ui-express": "^4.1.4"
   },
   "name": "accountservice",
   "pnpm": {
     "overrides": {
       "body-parser": "1.20.9",
+      "express": "4.20.0",
       "mongoose": "5.13.23",
-      "qs": "6.16.0"
+      "morgan": "1.12.1",
+      "on-headers": "1.1.0",
+      "qs": "6.16.0",
+      "send": "0.19.0",
+      "serve-static": "1.16.0"
     }
   },
   "private": true,
