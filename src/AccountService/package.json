@@ -20,7 +20,8 @@
       "on-headers": "1.1.0",
       "path-to-regexp": "0.1.13",
       "qs": "6.16.0",
-      "send": "0.19.0"
+      "send": "0.19.0",
+      "serve-static": "1.16.0"
     }
   },
   "private": true,
