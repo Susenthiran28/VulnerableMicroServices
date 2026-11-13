@@ -1,13 +1,9 @@
 {
   "targets": [
-    "src/AccountService/app.js",
-    "src/AccountService/models/Account.js",
-    "src/PaymentService/app.js"
+    "src/AccountService/app.js"
   ],
   "kept": null,
   "dropped": [
-    ".vigilnz/20261113T101805Z/smoke/src__AccountService__app.smoke.js (failed on current code)",
-    ".vigilnz/20261113T101805Z/smoke/src__AccountService__models__Account.smoke.js (failed on current code)",
-    ".vigilnz/20261113T101805Z/smoke/src__PaymentService__app.smoke.js (failed on current code)"
+    ".vigilnz/20261113T101805Z/smoke/src__AccountService__app.smoke.js (failed on current code)"
   ]
 }
