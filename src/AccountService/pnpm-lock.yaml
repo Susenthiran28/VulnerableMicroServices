@@ -337,7 +337,7 @@ packages:
     resolution: {integrity: sha512-E64YFPUssFHEFBvpbbjr44NCLtI1AohxQ8ZSiJjQLskAdKuriYEP6VyGEsRDH8ScozGpkaX1BGvhanqCwkcEZw==}
     engines: {node: '>= 0.8.0'}
 
-  serve-static@1.13.2:
+  serve-static@1.16.0:
     resolution: {integrity: sha512-p/tdJrO4U387R9oMjb1oj7qSMaMfmOyd4j9hOFoxZe2baQszgHcSWjuya/CiT5kgZZKRudHNOA0pYXOl8rQ5nw==}
     engines: {node: '>= 0.8.0'}
 
@@ -517,7 +517,7 @@ snapshots:
       range-parser: 1.2.1
       safe-buffer: 5.1.2
       send: 0.19.0
-      serve-static: 1.13.2
+      serve-static: 1.16.0
       setprototypeof: 1.1.0
       statuses: 1.4.0
       type-is: 1.6.18
@@ -724,7 +724,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  serve-static@1.13.2:
+  serve-static@1.16.0:
     dependencies:
       encodeurl: 1.0.2
       escape-html: 1.0.3
