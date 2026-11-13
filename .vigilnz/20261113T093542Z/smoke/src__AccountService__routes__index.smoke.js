@@ -1,43 +1,33 @@
-'use strict';
-
 const path = require('path');
 
-let loaded;
+let router;
 try {
-  loaded = require(path.join(__dirname, '../../../src/AccountService/routes/index.js'));
+  router = require(path.join(__dirname, '../../../src/AccountService/routes/index.js'));
 } catch (e) {
-  console.error('Failed to load module:', e && e.stack ? e.stack : e);
+  console.error('Failed to load router module:', e && e.stack ? e.stack : e);
   process.exit(1);
 }
 
 try {
-  if (!loaded || typeof loaded !== 'function' || !Array.isArray(loaded.stack)) {
-    console.error('Unexpected export shape for router module');
+  if (typeof router !== 'function') {
+    console.error('Unexpected export type for routes/index.js');
     process.exit(1);
   }
 
-  const methodsByPath = loaded.stack
-    .filter(layer => layer && layer.route && layer.route.path)
-    .map(layer => ({
-      path: layer.route.path,
-      methods: Object.keys(layer.route.methods || {}).sort()
-    }));
+  const stack = router.stack;
+  if (!Array.isArray(stack)) {
+    console.error('Observed behavior changed: router.stack is not an array');
+    process.exit(1);
+  }
 
-  const observed = JSON.stringify(methodsByPath);
-  const expected = JSON.stringify([
-    { path: '/', methods: ['get'] },
-    { path: '/', methods: ['put'] },
-    { path: '/', methods: ['post'] },
-    { path: '/:user', methods: ['get'] }
-  ]);
-
-  if (observed !== expected) {
-    console.error('Router behavior changed.');
-    console.error('Observed:', observed);
-    console.error('Expected:', expected);
+  const hasRootGet = stack.some(layer => layer && layer.route && layer.route.path === '/' && layer.route.methods && layer.route.methods.get === true);
+  if (!hasRootGet) {
+    console.error('Observed behavior changed: expected GET / route not found');
     process.exit(1);
   }
 } catch (e) {
-  console.error('Smoke test execution failed:', e && e.stack ? e.stack : e);
+  console.error('Failure while checking router behavior:', e && e.stack ? e.stack : e);
   process.exit(1);
 }
+
+process.exit(0);

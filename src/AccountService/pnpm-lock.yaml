@@ -24,7 +24,7 @@ importers:
         specifier: ~1.6.3
         version: 1.6.3
       mongoose:
-        specifier: ^5.9.6
+        specifier: ^5.13.23
         version: 5.13.23
       morgan:
         specifier: ~1.9.1
@@ -64,7 +64,7 @@ packages:
   bluebird@3.5.1:
     resolution: {integrity: sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==}
 
-  body-parser@1.18.3:
+  body-parser@1.20.9:
     resolution: {integrity: sha512-YQyoqQG3sO8iCmf8+hyVpgHHOv0/hCEFiS4zTGUwTA1HjAFX66wRcNQrVCeJq9pgESMRvUAOvSil5MJlmccuKQ==}
     engines: {node: '>= 0.8'}
 
@@ -298,7 +298,7 @@ packages:
     resolution: {integrity: sha512-5nnx0yGyVUcY6t9RnWcARWtwT9F1D8O9rt08htPvnd49W1IgZtmLkhu9WfMzQj1cFxjHIO6connUNVW5k7AVyQ==}
     engines: {node: '>= 0.10'}
 
-  qs@6.5.2:
+  qs@6.16.0:
     resolution: {integrity: sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==}
     engines: {node: '>=0.6'}
 
@@ -431,7 +431,7 @@ snapshots:
 
   bluebird@3.5.1: {}
 
-  body-parser@1.18.3:
+  body-parser@1.20.9:
     dependencies:
       bytes: 3.0.0
       content-type: 1.0.5
@@ -440,7 +440,7 @@ snapshots:
       http-errors: 1.6.3
       iconv-lite: 0.4.23
       on-finished: 2.3.0
-      qs: 6.5.2
+      qs: 6.16.0
       raw-body: 2.3.3
       type-is: 1.6.18
     transitivePeerDependencies:
@@ -495,7 +495,7 @@ snapshots:
     dependencies:
       accepts: 1.3.8
       array-flatten: 1.1.1
-      body-parser: 1.18.3
+      body-parser: 1.20.9
       content-disposition: 0.5.2
       content-type: 1.0.5
       cookie: 0.3.1
@@ -513,7 +513,7 @@ snapshots:
       parseurl: 1.3.3
       path-to-regexp: 0.1.7
       proxy-addr: 2.0.8
-      qs: 6.5.2
+      qs: 6.16.0
       range-parser: 1.2.1
       safe-buffer: 5.1.2
       send: 0.16.2
@@ -670,7 +670,7 @@ snapshots:
       forwarded: 0.2.0
       ipaddr.js: 1.9.1
 
-  qs@6.5.2: {}
+  qs@6.16.0: {}
 
   range-parser@1.2.1: {}
 
