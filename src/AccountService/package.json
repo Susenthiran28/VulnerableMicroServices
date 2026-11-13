@@ -13,10 +13,14 @@
   "pnpm": {
     "overrides": {
       "body-parser": "1.20.9",
+      "cookie": "0.7.0",
       "express": "4.20.0",
       "mongoose": "5.13.23",
       "morgan": "1.12.1",
-      "qs": "6.16.0"
+      "on-headers": "1.1.0",
+      "qs": "6.16.0",
+      "send": "0.19.0",
+      "serve-static": "1.16.0"
     }
   },
   "private": true,
