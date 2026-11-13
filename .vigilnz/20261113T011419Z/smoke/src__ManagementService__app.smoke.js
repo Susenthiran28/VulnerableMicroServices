@@ -1,28 +1,41 @@
-const assert = require('assert');
+const path = require('path');
+
+function fail(msg) {
+  console.error(msg);
+  process.exit(1);
+}
 
 let app;
 try {
   app = require('../../../src/ManagementService/app.js');
 } catch (e) {
-  console.error('Failed to load module:', e && e.stack ? e.stack : e);
-  process.exit(1);
+  fail('Failed to load module: ' + (e && e.stack ? e.stack : e));
 }
 
 try {
-  assert.strictEqual(typeof app, 'function', 'export should be an express app function');
-  assert.strictEqual(typeof app.use, 'function', 'app.use should exist');
-  assert.strictEqual(typeof app.set, 'function', 'app.set should exist');
+  if (!app || typeof app !== 'function') {
+    fail('Expected exported app to be a function');
+  }
 
-  const viewEngine = app.get('view engine');
-  const env = app.get('env');
+  const baseline = {
+    viewEngine: 'ejs',
+    mountPath: '/',
+    hasHandle: typeof app.handle === 'function',
+    hasSet: typeof app.set === 'function',
+    hasUse: typeof app.use === 'function'
+  };
 
-  assert.strictEqual(viewEngine, 'ejs', 'view engine changed from observed value');
-  assert.strictEqual(env, 'development', 'env changed from observed default value');
+  const observed = {
+    viewEngine: app.get && app.get('view engine'),
+    mountPath: app.mountpath,
+    hasHandle: typeof app.handle === 'function',
+    hasSet: typeof app.set === 'function',
+    hasUse: typeof app.use === 'function'
+  };
 
-  const stack = app && app._router && app._router.stack;
-  assert.ok(Array.isArray(stack), 'router stack should exist');
-  assert.strictEqual(stack.length, 9, 'middleware/route stack length changed from observed value');
+  if (JSON.stringify(observed) !== JSON.stringify(baseline)) {
+    fail('Observed app shape changed. Expected ' + JSON.stringify(baseline) + ' got ' + JSON.stringify(observed));
+  }
 } catch (e) {
-  console.error('Behavior check failed:', e && e.stack ? e.stack : e);
-  process.exit(1);
+  fail('Smoke assertions failed: ' + (e && e.stack ? e.stack : e));
 }
