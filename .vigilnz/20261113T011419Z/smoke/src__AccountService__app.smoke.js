@@ -2,36 +2,45 @@ const path = require('path');
 
 const targetPath = path.join(__dirname, '../../../src/AccountService/app.js');
 
+function fail(msg) {
+  console.error(msg);
+  process.exit(1);
+}
+
 let exported;
 try {
   exported = require(targetPath);
 } catch (e) {
-  console.error('Failed to load module:', e && e.message);
-  process.exit(1);
+  fail(`LOAD_FAIL: ${e && e.stack ? e.stack : e}`);
 }
 
-const observed = {
-  type: typeof exported,
-  isFunction: typeof exported === 'function',
-  hasUse: !!(exported && typeof exported.use === 'function'),
-  hasHandle: !!(exported && typeof exported.handle === 'function')
-};
+try {
+  if (!exported || typeof exported !== 'function') {
+    fail(`UNEXPECTED_EXPORT_TYPE: ${typeof exported}`);
+  }
 
-const expected = {
-  type: 'function',
-  isFunction: true,
-  hasUse: true,
-  hasHandle: true
-};
+  const currentShape = {
+    isFunction: typeof exported === 'function',
+    hasUse: typeof exported.use === 'function',
+    hasHandle: typeof exported.handle === 'function',
+    hasListen: typeof exported.listen === 'function',
+    constructorName: exported && exported.constructor ? exported.constructor.name : null,
+  };
 
-if (
-  observed.type !== expected.type ||
-  observed.isFunction !== expected.isFunction ||
-  observed.hasUse !== expected.hasUse ||
-  observed.hasHandle !== expected.hasHandle
-) {
-  console.error('Observed behavior changed.', { observed, expected });
-  process.exit(1);
+  const expectedShape = {
+    isFunction: true,
+    hasUse: true,
+    hasHandle: true,
+    hasListen: true,
+    constructorName: 'Function',
+  };
+
+  const same = JSON.stringify(currentShape) === JSON.stringify(expectedShape);
+  if (!same) {
+    fail(`SHAPE_CHANGED: observed=${JSON.stringify(currentShape)} expected=${JSON.stringify(expectedShape)}`);
+  }
+
+  process.exit(0);
+} catch (e) {
+  fail(`CALL_FAIL: ${e && e.stack ? e.stack : e}`);
 }
-
-process.exit(0);
