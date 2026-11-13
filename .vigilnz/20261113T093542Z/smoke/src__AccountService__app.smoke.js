@@ -5,37 +5,63 @@ let observed;
 
 try {
   loaded = require('../../../src/AccountService/app.js');
-} catch (e) {
-  console.error('Failed to load module:', e && e.stack ? e.stack : e);
+} catch (err) {
+  console.error('Failed to load module:', err && err.stack ? err.stack : err);
   process.exit(1);
 }
 
 try {
-  observed = {
-    type: typeof loaded,
-    isFunction: typeof loaded === 'function',
-    hasUse: !!(loaded && typeof loaded.use === 'function'),
-    hasHandle: !!(loaded && typeof loaded.handle === 'function')
+  if (typeof loaded !== 'function') {
+    throw new Error('Expected exported app to be a function');
+  }
+
+  const req = {
+    method: 'GET',
+    url: '/__vigilnz_smoke__',
+    headers: {},
+    app: { get: () => 'production' }
   };
-} catch (e) {
-  console.error('Failed to observe module shape:', e && e.stack ? e.stack : e);
+
+  observed = { statusCode: null, body: null, headers: {} };
+
+  const res = {
+    locals: {},
+    status(code) {
+      observed.statusCode = code;
+      return this;
+    },
+    json(obj) {
+      observed.body = obj;
+      return this;
+    },
+    setHeader(k, v) {
+      observed.headers[k.toLowerCase()] = v;
+    },
+    getHeader(k) {
+      return observed.headers[String(k).toLowerCase()];
+    }
+  };
+
+  loaded(req, res, function next(err) {
+    if (err) {
+      throw err;
+    }
+  });
+} catch (err) {
+  console.error('Failed to call exported app:', err && err.stack ? err.stack : err);
   process.exit(1);
 }
 
 const expected = {
-  type: 'function',
-  isFunction: true,
-  hasUse: true,
-  hasHandle: true
+  statusCode: 404,
+  body: {
+    status: 'FAIL',
+    message: 'Not Found'
+  }
 };
 
-if (
-  observed.type !== expected.type ||
-  observed.isFunction !== expected.isFunction ||
-  observed.hasUse !== expected.hasUse ||
-  observed.hasHandle !== expected.hasHandle
-) {
-  console.error('Observed behavior changed. Expected:', expected, 'Observed:', observed);
+if (!observed || observed.statusCode !== expected.statusCode || !observed.body || observed.body.status !== expected.body.status || observed.body.message !== expected.body.message) {
+  console.error('Observed behavior changed.', { observed, expected });
   process.exit(1);
 }
 

@@ -1,33 +1,35 @@
-const path = require('path');
-
-let router;
+let mod;
 try {
-  router = require(path.join(__dirname, '../../../src/AccountService/routes/index.js'));
+  mod = require('../../../src/AccountService/routes/index.js');
 } catch (e) {
-  console.error('Failed to load router module:', e && e.stack ? e.stack : e);
+  console.error('Failed to load module:', e && e.message);
   process.exit(1);
 }
 
 try {
-  if (typeof router !== 'function') {
-    console.error('Unexpected export type for routes/index.js');
-    process.exit(1);
+  if (!mod || typeof mod !== 'function') {
+    throw new Error('Export shape changed: expected Express router function');
   }
 
-  const stack = router.stack;
-  if (!Array.isArray(stack)) {
-    console.error('Observed behavior changed: router.stack is not an array');
-    process.exit(1);
+  const expectedProps = ['use', 'get', 'put', 'handle', 'stack'];
+  for (const p of expectedProps) {
+    if (!(p in mod)) throw new Error(`Missing expected router property: ${p}`);
   }
 
-  const hasRootGet = stack.some(layer => layer && layer.route && layer.route.path === '/' && layer.route.methods && layer.route.methods.get === true);
-  if (!hasRootGet) {
-    console.error('Observed behavior changed: expected GET / route not found');
-    process.exit(1);
+  if (!Array.isArray(mod.stack)) {
+    throw new Error('Router stack is not an array');
+  }
+
+  const routePaths = mod.stack
+    .filter(l => l && l.route && l.route.path)
+    .map(l => `${Object.keys(l.route.methods).sort().join(',')}:${l.route.path}`)
+    .sort();
+
+  const expected = ['get:/', 'put:/'];
+  if (routePaths.length !== expected.length || routePaths.some((v, i) => v !== expected[i])) {
+    throw new Error(`Route signature changed: got ${JSON.stringify(routePaths)} expected ${JSON.stringify(expected)}`);
   }
 } catch (e) {
-  console.error('Failure while checking router behavior:', e && e.stack ? e.stack : e);
+  console.error('Behavior check failed:', e && e.message);
   process.exit(1);
 }
-
-process.exit(0);

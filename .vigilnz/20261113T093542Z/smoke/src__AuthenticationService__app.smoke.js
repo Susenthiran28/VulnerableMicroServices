@@ -1,27 +1,30 @@
-const path = require('path');
+const assert = require('assert');
 
-let mod;
+let app;
 try {
-  mod = require(path.join(__dirname, '../../../src/AuthenticationService/app.js'));
+  app = require('../../../src/AuthenticationService/app.js');
 } catch (e) {
-  console.error('Failed to load module:', e && e.stack ? e.stack : e);
+  console.error('Failed to load app:', e && e.stack ? e.stack : e);
   process.exit(1);
 }
 
 try {
-  if (typeof mod !== 'function') {
-    console.error('Unexpected export type for app.js');
-    process.exit(1);
-  }
+  const observed = {
+    type: typeof app,
+    isFunction: typeof app === 'function',
+    viewEngine: app && typeof app.get === 'function' ? app.get('view engine') : undefined,
+    env: app && typeof app.get === 'function' ? app.get('env') : undefined,
+  };
 
-  const viewEngine = mod.get && mod.get('view engine');
-  if (viewEngine !== 'ejs') {
-    console.error('Observed behavior changed: expected view engine to be ejs, got:', viewEngine);
-    process.exit(1);
-  }
+  const expected = {
+    type: 'function',
+    isFunction: true,
+    viewEngine: 'ejs',
+    env: 'development',
+  };
+
+  assert.deepStrictEqual(observed, expected);
 } catch (e) {
-  console.error('Failure while checking behavior:', e && e.stack ? e.stack : e);
+  console.error('Behavior changed or invocation failed:', e && e.stack ? e.stack : e);
   process.exit(1);
 }
-
-process.exit(0);
