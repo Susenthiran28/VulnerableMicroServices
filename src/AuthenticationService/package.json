@@ -1,16 +1,21 @@
 {
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "7.0.2",
+    "express": "4.22.3",
+    "http-errors": "~1.6.3",
+    "morgan": "1.12.1"
+  },
   "name": "authenticationservice",
-  "version": "0.0.0",
+  "overrides": {
+    "ejs": "7.0.2",
+    "express": "4.22.3",
+    "morgan": "1.12.1"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
-  "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "ejs": "~2.6.1",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
-  }
+  "version": "0.0.0"
 }
